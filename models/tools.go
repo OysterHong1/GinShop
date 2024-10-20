@@ -33,6 +33,10 @@ func GetUnix() int64 {
 	return time.Now().Unix()
 }
 
+func GetUnixNano() int64 {
+	return time.Now().UnixNano()
+}
+
 // 获取当前的日期
 func GetDate() string {
 	template := "2006-01-02 15:04:05"
@@ -91,7 +95,7 @@ func UploadFile(c *gin.Context, picName string) (string, error) {
 		return "", err1
 	}
 
-	fileName := strconv.FormatInt(GetUnix(), 10) + extName
+	fileName := strconv.FormatInt(GetUnixNano(), 10) + extName
 	dst := path.Join(dir, fileName)
 	err2 := c.SaveUploadedFile(file, dst)
 	if err2 != nil {

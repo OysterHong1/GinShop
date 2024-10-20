@@ -8,6 +8,12 @@
 <!-- 语言包 -->
 <script type="text/javascript" src="/static/admin/js/zh_cn.js"></script>
 
+<!--上传图片插件-->
+<link rel="stylesheet" type="text/css" href="/static/diyUpload/css/webuploader.css">
+<link rel="stylesheet" type="text/css" href="/static/diyUpload/css/diyUpload.css">
+<script type="text/javascript" src="/static/diyUpload/js/webuploader.html5only.min.js"></script>
+<script type="text/javascript" src="/static/diyUpload/js/diyUpload.js"></script>
+
 <div class="container-fluid">
     <div class="row">
         <div class="panel panel-default">
@@ -135,11 +141,12 @@
       
                               </div>
                               <div role="tabpanel" class="tab-pane" id="photo">
-      
-                                      商品相册
+                                  <div id="photoUploader"></div>
+                                  <div id="photoList"></div>
                               </div>
                         </div>
-
+                        <br>
+                        <button type="submit" class="btn btn-primary">提交</button>
                     </form>
                 </div>
             </div>
@@ -190,7 +197,26 @@
             })
         })
     })
+
+    //批量上传图片
+    $(function(){
+        $('#photoUploader').diyUpload({
+            url:'/admin/goods/imageUpload',
+            success:function( response ) {
+                var photoStr = '<input type="hidden" name="goods_image_list value='+response.link +'/>'
+                $("#photoList").append(photoStr)
+            },
+            error:function( err ) {
+                console.info( err );
+            }
+        });
+    })
+
 </script>
+
+
+
+
 </body>
 </html>
 {{end}}

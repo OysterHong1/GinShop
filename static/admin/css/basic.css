@@ -110,3 +110,6 @@ input[type=file]{
 .goods-content{
     border: 1px solid #eee;
 }
+
+/*解决webuploader按钮失效*/
+.photoUploader div:nth-child(2){width:100%!important;height:100%!important;}

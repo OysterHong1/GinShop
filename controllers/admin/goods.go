@@ -35,6 +35,17 @@ func (con GoodsController) Add(c *gin.Context) {
 	})
 }
 
+func (con GoodsController) DoAdd(c *gin.Context) {
+	attrIdList := c.PostFormArray("attr_id_list")
+	attrValueList := c.PostFormArray("attr_value_list")
+	goodsImageList := c.PostFormArray("goods_image_list")
+	c.JSON(http.StatusOK, gin.H{
+		"attrIdList":     attrIdList,
+		"attrValueList":  attrValueList,
+		"goodsImageList": goodsImageList,
+	})
+}
+
 func (con GoodsController) GoodsTypeAttribute(c *gin.Context) {
 	cateId, err1 := models.StringToInt(c.Query("cateId"))
 	goodsTypeAttributeList := []models.GoodsTypeAttribute{}
