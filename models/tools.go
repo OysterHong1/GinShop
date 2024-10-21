@@ -62,6 +62,12 @@ func StringToInt(str string) (int, error) {
 	return n, err
 }
 
+// string转float64
+func Float(str string) (float64, error) {
+	n, err := strconv.ParseFloat(str, 64)
+	return n, err
+}
+
 func IntToString(num int) string {
 	return strconv.Itoa(num)
 }

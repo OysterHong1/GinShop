@@ -1,5 +1,8 @@
 package models
 
+//goodstypeattribute为商品类型属性
+//如手机有：性能，相机，蓝牙登
+
 type GoodsTypeAttribute struct {
 	Id        int    `json:"id"`
 	CateId    int    `json:"cate_id"`

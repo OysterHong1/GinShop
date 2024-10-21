@@ -2,7 +2,7 @@
 <ul class="aside">
     {{$isSuper := .isSuper}}
     {{range $key,$value := .accessList}}  
-        {{if eq $isSuper 0}}
+        {{if eq $isSuper 1}} 		
             <li>
                 <h4>{{$value.ModuleName}}</h4>                
                 <ul>
