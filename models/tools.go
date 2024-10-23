@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"html/template"
 	"io"
 	"os"
 	"path"
@@ -108,4 +109,9 @@ func UploadFile(c *gin.Context, picName string) (string, error) {
 		return "", err2
 	}
 	return dst, nil
+}
+
+// 字符串解析为html
+func Str2Html(str string) template.HTML {
+	return template.HTML(str)
 }

@@ -58,7 +58,7 @@ table .th{
 }
 
 input[type=file]{
- 	display: inline !important;
+ 	display: inline;
 
 }
 
@@ -113,3 +113,24 @@ input[type=file]{
 
 /*解决webuploader按钮失效*/
 .photoUploader div:nth-child(2){width:100%!important;height:100%!important;}
+
+#photoUploader{
+    margin: 20px auto;
+    width: 200px;
+
+}
+
+.goods_image_list {
+    border:1px solid #eee;
+
+}
+.goods_image_list li{
+    width:  120px;
+    float: left;
+    margin-right: 10px;
+    border-bottom: none;
+    position: relative;
+}
+.goods_image_list li img{
+    width:  120px;
+}

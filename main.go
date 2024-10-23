@@ -13,6 +13,7 @@ func main() {
 	r := gin.Default()
 	r.SetFuncMap(template.FuncMap{
 		"UnixToTime": models.UnixToTime, //注册模板函数
+		"Str2Html":   models.Str2Html,
 	}) //配置自定义模板函数
 	//自定义模板函数要放在模板加载之前
 
