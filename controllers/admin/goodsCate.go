@@ -48,7 +48,7 @@ func (con GoodsCateController) DoAdd(c *gin.Context) {
 		return
 	}
 
-	cateImgDir, _ := models.UploadFile(c, "cate_img")
+	cateImgDir, _ := models.UploadImg(c, "cate_img")
 	goodsCate := models.GoodsCate{
 		Title:       title,
 		Pid:         pid,
@@ -107,7 +107,7 @@ func (con GoodsCateController) DoEdit(c *gin.Context) {
 		con.Error(c, "排序值必须为整数", "/admin/goodsCate/add")
 		return
 	}
-	cateImgDir, _ := models.UploadFile(c, "cate_img")
+	cateImgDir, _ := models.UploadImg(c, "cate_img")
 
 	goodsCate := models.GoodsCate{Id: id}
 	models.DB.Find(&goodsCate)

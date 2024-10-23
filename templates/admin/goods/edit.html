@@ -1,3 +1,4 @@
+
 {{ define "admin/goods/edit.html" }}
 {{ template "admin/public/page_header.html" .}}
 <!-- 富文本编辑器 -->
@@ -24,7 +25,7 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active"><a href="#general" role="tab"
-                                    data-toggle="tab">通用信息</a></li>
+                                                                      data-toggle="tab">通用信息</a></li>
                             <li role="presentation"><a href="#detail" role="tab" data-toggle="tab">详细描述</a></li>
                             <li role="presentation"><a href="#mix" role="tab" data-toggle="tab">商品属性</a></li>
                             <li role="presentation"><a href="#attribute" role="tab" data-toggle="tab">规格与包装</a></li>
@@ -37,30 +38,30 @@
 
                                 <ul class="form_input">
                                     <li> <span> 商品标题:</span> <input type="text" name="title" class="input"
-                                        value="{{.goods.Title}}" /></li>
+                                                                        value="{{.goods.Title}}" /></li>
                                     <li> <span> 附属标题:</span> <input type="text" name="sub_title" class="input"
-                                            value="{{.goods.SubTitle}}" /></li>
+                                                                        value="{{.goods.SubTitle}}" /></li>
                                     <li> <span> 商品版本:</span> <input type="text" name="goods_version" class="input"
-                                            value="{{.goods.GoodsVersion}}" />
+                                                                        value="{{.goods.GoodsVersion}}" />
                                     </li>
                                     <li> <span>所属分类:</span>
                                         <select name="cate_id" id="cid">
                                             {{$cateId := .goods.CateId}}
                                             {{range $key,$value := .goodsCateList}}
-                                                <option  {{if eq $cateId $value.Id}}selected{{end}} value="{{$value.Id}}" >{{$value.Title}}</option>
-                                                {{range $k,$v := $value.GoodsCateItems}}
-                                                     <option {{if eq $cateId $v.Id}}selected{{end}} value="{{$v.Id}}"> ----{{$v.Title}}</option>
-                                                {{end}}
+                                            <option  {{if eq $cateId $value.Id}}selected{{end}} value="{{$value.Id}}" >{{$value.Title}}</option>
+                                            {{range $k,$v := $value.GoodsCateItems}}
+                                            <option {{if eq $cateId $v.Id}}selected{{end}} value="{{$v.Id}}"> ----{{$v.Title}}</option>
+                                            {{end}}
                                             {{end}}
                                         </select>
                                     </li>
-                                    <li> <span> 商品图片:</span> 
+                                    <li> <span> 商品图片:</span>
                                         <input type="file" name="goods_img" />
                                         {{if ne .goods.GoodsImg ""}}
-                                            <img src="/{{.goods.GoodsImg}}" width="80"/>
+                                        <img src="/{{.goods.GoodsImg}}" width="80"/>
                                         {{end}}
                                     </li>
-                                  
+
                                     <li> <span>商品价格:</span> <input type="text" name="price" value="{{.goods.Price}}"/></li>
                                     <li> <span>商品原价:</span> <input type="text" name="market_price"  value="{{.goods.MarketPrice}}" /></li>
                                     <li> <span>商品库存:</span> <input type="text" name="goods_number" value="{{.goods.GoodsNumber}}" /></li>
@@ -92,7 +93,7 @@
 
                                         {{range $key,$value := .goodsColorList}}
                                         <input type="checkbox" {{if eq $value.Checked true}}checked{{end}} value="{{$value.Id}}" name="goods_color"
-                                            id="color_{{$value.Id}}" />
+                                               id="color_{{$value.Id}}" />
                                         <label for="color_{{$value.Id}}">{{$value.ColorName}}</label>
                                         &nbsp;
                                         {{end}}
@@ -128,14 +129,14 @@
                                     </li>
 
                                     <li> <span>Seo关键词:</span>
-                                                    
-                                        <input type="text" name="goods_keywords" class="input" value="{{.goods.GoodsKeywords}}" />  
-                                    
+
+                                        <input type="text" name="goods_keywords" class="input" value="{{.goods.GoodsKeywords}}" />
+
                                     </li>
 
-                                    <li> <span>Seo描述:</span>                                                
+                                    <li> <span>Seo描述:</span>
                                         <textarea name="goods_desc" id="goods_desc" cols="100" rows="2">{{.goods.GoodsDesc}}</textarea>
-                                    
+
                                     </li>
 
 
@@ -152,7 +153,7 @@
                                             <option value="0">--请选择商品类型--</option>
                                             {{$goodsTypeId := .goods.GoodsTypeId}}
                                             {{range $key,$value := .goodsTypeList}}
-                                             <option  {{if eq $value.Id $goodsTypeId}}selected{{end}} value="{{$value.Id}}">{{$value.Title}}</option>
+                                            <option  {{if eq $value.Id $goodsTypeId}}selected{{end}} value="{{$value.Id}}">{{$value.Title}}</option>
                                             {{end}}
                                         </select>
 
@@ -168,17 +169,30 @@
                             </div>
                             <div role="tabpanel" class="tab-pane" id="photo">
 
-                                <div id="photoUploader"></div>
                                 <div id="photoList">
                                     <ul id="goods_image_list" class="goods_image_list clear">
-
+                                        {{$goodsColor:=.goodsColorList}}
                                         {{range $key,$value := .goodsImageList}}
-                                            <li>
-                                                <img  src="{{$value.ImgUrl}}" class="pic" />                                            
-                                            </li>
+                                        <li>
+                                            <img  src="{{$value.ImgUrl}}" class="pic" />
+                                            <div class="color_list">
+                                                <select class="relation_goods_color" goods_image_id="{{$value.Id}}">
+                                                    <option value="0">关联颜色</option>
+                                                    {{range $k,$v := $goodsColor}}
+                                                        {{if eq $v.Checked true}}
+                                                            <option value="{{$v.Id}}" {{if eq $value.ColorId $v.Id}}selected{{end}}>{{$v.ColorName}}</option>
+                                                        {{end}}
+                                                    {{end}}
+                                                </select>
+                                            </div>
+                                            <div class="goods_image_delete" goods_image_id="{{$value.Id}}"></div>
+                                        </li>
                                         {{end}}
                                     </ul>
                                 </div>
+
+                                <div id="photoUploader"></div>
+
                             </div>
                         </div>
 
@@ -249,6 +263,29 @@
             }
         });
 
+    })
+    $(function(){
+        $(".relation_goods_color").change(function(){
+            var goods_image_id=$(this).attr("goods_image_id")
+            var color_id=$(this).val()
+            $.get("/admin/goods/changeGoodsImageColor",{"goods_image_id":goods_image_id,"color_id":color_id},function(response){
+                console.log(response)
+            })
+        })
+
+        $(".goods_image_delete").click(function(){
+            var goods_image_id=$(this).attr("goods_image_id")
+            var _that=this;
+            var flag = confirm("确定要删除吗?");
+            if (flag){
+                $.get("/admin/goods/removeGoodsImage",{"goods_image_id":goods_image_id},function(response){
+                    // console.log(response)
+                    if(response.success){
+                        $(_that).parent().remove()
+                    }
+                })
+            }
+        })
     })
 </script>
 </body>

@@ -1,7 +1,5 @@
 package models
 
-//goodscate为商品分类
-
 type GoodsCate struct {
 	Id             int
 	Title          string

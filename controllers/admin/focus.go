@@ -38,7 +38,7 @@ func (con FocusController) DoAdd(c *gin.Context) {
 	}
 
 	//上传文件
-	focusImgSrc, err4 := models.UploadFile(c, "focus_img")
+	focusImgSrc, err4 := models.UploadImg(c, "focus_img")
 	if err4 != nil {
 		fmt.Println(err4)
 	}
@@ -90,7 +90,7 @@ func (con FocusController) DoEdit(c *gin.Context) {
 		con.Error(c, "请输入正确的排序值", "/admin/focus/edit?id="+models.IntToString(id))
 	}
 
-	focusImg, _ := models.UploadFile(c, "focus_img")
+	focusImg, _ := models.UploadImg(c, "focus_img")
 	focus := models.Focus{Id: id}
 	models.DB.Find(&focus)
 	focus.Title = title

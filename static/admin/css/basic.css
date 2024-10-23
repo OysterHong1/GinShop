@@ -130,7 +130,23 @@ input[type=file]{
     margin-right: 10px;
     border-bottom: none;
     position: relative;
+    text-align: center;
 }
 .goods_image_list li img{
     width:  120px;
+}
+
+/*修改图库布局*/
+.goods_image_list li .color_list{
+    margin-top: 20px;
+}
+
+.goods_image_list li .goods_image_delete{
+    width: 40px;
+    height: 40px;
+    position:absolute;
+    background: url('/static/diyUpload/images/x_alt.png') no-repeat center center;
+    top: -20px;
+    right: -25px;
+    cursor: pointer;
 }

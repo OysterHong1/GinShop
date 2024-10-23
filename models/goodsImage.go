@@ -1,9 +1,5 @@
 package models
 
-/*
-	商品相册信息
-*/
-
 type GoodsImage struct {
 	Id      int
 	GoodsId int

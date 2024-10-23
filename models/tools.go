@@ -4,13 +4,14 @@ import (
 	"crypto/md5"
 	"errors"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"html/template"
 	"io"
 	"os"
 	"path"
 	"strconv"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 // 时间戳转换成日期
@@ -34,6 +35,7 @@ func GetUnix() int64 {
 	return time.Now().Unix()
 }
 
+// 获取纳秒
 func GetUnixNano() int64 {
 	return time.Now().UnixNano()
 }
@@ -50,68 +52,74 @@ func GetDay() string {
 	return time.Now().Format(template)
 }
 
-// Md5加密
+// md5加密
 func Md5(str string) string {
 	h := md5.New()
 	io.WriteString(h, str)
 	return fmt.Sprintf("%x", h.Sum(nil))
 }
 
-// String转换为Int
+// 把字符串解析成html
+func Str2Html(str string) template.HTML {
+	return template.HTML(str)
+}
+
+// 表示把string转换成int
 func StringToInt(str string) (int, error) {
 	n, err := strconv.Atoi(str)
 	return n, err
 }
 
-// string转float64
+// 表示把string转换成Float64
 func Float(str string) (float64, error) {
 	n, err := strconv.ParseFloat(str, 64)
 	return n, err
 }
 
-func IntToString(num int) string {
-	return strconv.Itoa(num)
+// 表示把int转换成string
+func IntToString(n int) string {
+	str := strconv.Itoa(n)
+	return str
 }
 
-// 上传文件
-func UploadFile(c *gin.Context, picName string) (string, error) {
+// 上传图片
+func UploadImg(c *gin.Context, picName string) (string, error) {
+	// 1、获取上传的文件
 	file, err := c.FormFile(picName)
 	if err != nil {
 		return "", err
 	}
 
+	// 2、获取后缀名 判断类型是否正确  .jpg .png .gif .jpeg
 	extName := path.Ext(file.Filename)
 	allowExtMap := map[string]bool{
 		".jpg":  true,
-		".jpeg": true,
 		".png":  true,
 		".gif":  true,
+		".jpeg": true,
 	}
 
 	if _, ok := allowExtMap[extName]; !ok {
-		c.String(200, "上传的文件不合法")
 		return "", errors.New("文件后缀名不合法")
 	}
+
+	// 3、创建图片保存目录  static/upload/20210624
 
 	day := GetDay()
 	dir := "./static/upload/" + day
 
 	err1 := os.MkdirAll(dir, 0666)
 	if err1 != nil {
-		c.String(200, "MkdirAll失败")
+		fmt.Println(err1)
 		return "", err1
 	}
 
+	// 4、生成文件名称和文件保存的目录   111111111111.jpeg
 	fileName := strconv.FormatInt(GetUnixNano(), 10) + extName
-	dst := path.Join(dir, fileName)
-	err2 := c.SaveUploadedFile(file, dst)
-	if err2 != nil {
-		return "", err2
-	}
-	return dst, nil
-}
 
-// 字符串解析为html
-func Str2Html(str string) template.HTML {
-	return template.HTML(str)
+	// 5、执行上传
+	dst := path.Join(dir, fileName)
+	c.SaveUploadedFile(file, dst)
+	return dst, nil
+
 }

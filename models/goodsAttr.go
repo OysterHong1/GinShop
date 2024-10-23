@@ -1,9 +1,5 @@
 package models
 
-/*
-	goodsAttr为商品规格和包装的保存地
-*/
-
 type GoodsAttr struct {
 	Id              int
 	GoodsId         int
