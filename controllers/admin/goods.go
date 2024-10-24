@@ -4,6 +4,7 @@ import (
 	"GinShop/models"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"math"
 	"net/http"
 	"strings"
 	"sync"
@@ -16,12 +17,23 @@ type GoodsController struct {
 }
 
 func (con GoodsController) Index(c *gin.Context) {
-	//获取商品列表
+	//获取商品列表并实现分页
+	page, _ := models.StringToInt(c.Query("page"))
+	if page == 0 { //调用错误时回到第1页
+		page = 1
+	}
+	pageSize := 5
 	goodsList := []models.Goods{}
-	models.DB.Find(&goodsList)
+	models.DB.Offset((page - 1) * pageSize).Limit(pageSize).Find(&goodsList)
+
+	//获取总数量
+	var count int64
+	models.DB.Table("goods").Count(&count)
 
 	c.HTML(http.StatusOK, "admin/goods/index.html", gin.H{
-		"goodsList": goodsList,
+		"goodsList":  goodsList,
+		"totalPages": math.Ceil(float64(count) / float64(pageSize)),
+		"page":       page,
 	})
 }
 

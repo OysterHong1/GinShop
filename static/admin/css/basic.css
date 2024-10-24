@@ -150,3 +150,7 @@ input[type=file]{
     right: -25px;
     cursor: pointer;
 }
+
+#pagination{
+    float: right;
+}
