@@ -250,6 +250,7 @@ func (con GoodsController) Edit(c *gin.Context) {
 		"goodsTypeList":  goodsTypeList,
 		"goodsAttrStr":   goodsAttrStr,
 		"goodsImageList": goodsImageList,
+		"prevPage":       c.Request.Referer(), //获取上一页地址，用于实现修改完成后的跳转
 	})
 
 }
@@ -261,6 +262,9 @@ func (con GoodsController) DoEdit(c *gin.Context) {
 	if err1 != nil {
 		con.Error(c, "传入参数错误", "/admin/goods")
 	}
+	//获取上一页的地址
+	prevPage := c.PostForm("prevPage")
+
 	title := c.PostForm("title")
 	subTitle := c.PostForm("sub_title")
 	goodsSn := c.PostForm("goods_sn")
@@ -377,7 +381,12 @@ func (con GoodsController) DoEdit(c *gin.Context) {
 		wg.Done()
 	}()
 	wg.Wait()
-	con.Success(c, "修改数据成功", "/admin/goods")
+	if len(prevPage) > 0 {
+		con.Success(c, "修改数据成功", prevPage)
+	} else {
+		con.Success(c, "修改数据成功", "/admin/goods")
+	}
+
 }
 
 func (con GoodsController) GoodsTypeAttribute(c *gin.Context) {
