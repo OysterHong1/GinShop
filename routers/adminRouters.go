@@ -83,5 +83,12 @@ func AdminRoutersInit(r *gin.Engine) {
 		adminRouters.GET("/goodsTypeAttribute/edit", admin.GoodsTypeAttributeController{}.Edit)
 		adminRouters.POST("/goodsTypeAttribute/doEdit", admin.GoodsTypeAttributeController{}.DoEdit)
 		adminRouters.GET("/goodsTypeAttribute/delete", admin.GoodsTypeAttributeController{}.Delete)
+
+		adminRouters.GET("/nav", admin.NavController{}.Index)
+		adminRouters.GET("/nav/add", admin.NavController{}.Add)
+		adminRouters.POST("/nav/doAdd", admin.NavController{}.DoAdd)
+		adminRouters.GET("/nav/edit", admin.NavController{}.Edit)
+		adminRouters.POST("/nav/doEdit", admin.NavController{}.DoEdit)
+		adminRouters.GET("/nav/delete", admin.NavController{}.Delete)
 	}
 }
