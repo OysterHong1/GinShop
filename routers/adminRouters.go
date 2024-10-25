@@ -57,6 +57,7 @@ func AdminRoutersInit(r *gin.Engine) {
 		adminRouters.POST("/goods/doAdd", admin.GoodsController{}.DoAdd)
 		adminRouters.GET("/goods/edit", admin.GoodsController{}.Edit)
 		adminRouters.POST("/goods/doEdit", admin.GoodsController{}.DoEdit)
+		adminRouters.GET("/goods/delete", admin.GoodsController{}.Delete)
 		adminRouters.GET("/goods/goodsTypeAttribute", admin.GoodsController{}.GoodsTypeAttribute)
 		adminRouters.POST("/goods/imageUpload", admin.GoodsController{}.ImageUpload)
 		adminRouters.GET("/goods/changeGoodsImageColor", admin.GoodsController{}.ChangeGoodsImageColor)

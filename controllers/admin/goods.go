@@ -17,24 +17,50 @@ type GoodsController struct {
 }
 
 func (con GoodsController) Index(c *gin.Context) {
+
 	//获取商品列表并实现分页
 	page, _ := models.StringToInt(c.Query("page"))
 	if page == 0 { //调用错误时回到第1页
 		page = 1
 	}
+	//商品删除状态关键字
+	where := "is_delete=0"
+
+	//获取keyword
+	keyword := c.Query("keyword")
+	if len(keyword) > 0 {
+		where += " AND title LIKE \"%" + keyword + "%\""
+	}
+
 	pageSize := 5
 	goodsList := []models.Goods{}
-	models.DB.Offset((page - 1) * pageSize).Limit(pageSize).Find(&goodsList)
+
+	models.DB.Where(where).Offset((page - 1) * pageSize).Limit(pageSize).Find(&goodsList)
 
 	//获取总数量
 	var count int64
-	models.DB.Table("goods").Count(&count)
+	models.DB.Where(where).Table("goods").Count(&count)
 
-	c.HTML(http.StatusOK, "admin/goods/index.html", gin.H{
-		"goodsList":  goodsList,
-		"totalPages": math.Ceil(float64(count) / float64(pageSize)),
-		"page":       page,
-	})
+	//判断最后一页有无数据，当没有数据时需要跳转回首页
+	if len(goodsList) > 0 {
+		c.HTML(http.StatusOK, "admin/goods/index.html", gin.H{
+			"goodsList":  goodsList,
+			"totalPages": math.Ceil(float64(count) / float64(pageSize)),
+			"page":       page,
+		})
+	} else {
+		if page != 1 {
+			c.Redirect(302, "/admin/goods")
+		} else {
+			c.HTML(http.StatusOK, "admin/goods/index.html", gin.H{
+				"goodsList":  goodsList,
+				"totalPages": math.Ceil(float64(count) / float64(pageSize)),
+				"page":       page,
+				"keyword":    keyword,
+			})
+		}
+	}
+
 }
 
 func (con GoodsController) Add(c *gin.Context) {
@@ -387,6 +413,26 @@ func (con GoodsController) DoEdit(c *gin.Context) {
 		con.Success(c, "修改数据成功", "/admin/goods")
 	}
 
+}
+
+func (con GoodsController) Delete(c *gin.Context) {
+	id, err := models.StringToInt(c.Query("id"))
+	if err != nil {
+		con.Error(c, "传入数据错误", "/admin/goods")
+	} else {
+		goods := models.Goods{Id: id}
+		models.DB.Find(&goods)
+		goods.IsDelete = 1
+		goods.Status = 0
+		models.DB.Save(&goods)
+
+		prevPage := c.Request.Referer()
+		if len(prevPage) > 0 {
+			con.Success(c, "删除数据成功", prevPage)
+		} else {
+			con.Success(c, "删除数据成功", "/admin/goods")
+		}
+	}
 }
 
 func (con GoodsController) GoodsTypeAttribute(c *gin.Context) {
