@@ -3,11 +3,12 @@ package routers
 import (
 	"GinShop/controllers/admin"
 	"GinShop/middlewares"
+
 	"github.com/gin-gonic/gin"
 )
 
 func AdminRoutersInit(r *gin.Engine) {
-	//在路由分组中配置中间件
+	//middlewares.InitMiddleware中间件
 	adminRouters := r.Group("/admin", middlewares.InitAdminAuthMiddleware)
 	{
 		adminRouters.GET("/", admin.MainController{}.Index)
@@ -16,11 +17,9 @@ func AdminRoutersInit(r *gin.Engine) {
 		adminRouters.GET("/changeNum", admin.MainController{}.ChangeNum)
 
 		adminRouters.GET("/login", admin.LoginController{}.Index)
-		adminRouters.POST("/doLogin", admin.LoginController{}.DoLogin)
-
-		adminRouters.GET("/logout", admin.LoginController{}.LogOut)
-
 		adminRouters.GET("/captcha", admin.LoginController{}.Captcha)
+		adminRouters.POST("/doLogin", admin.LoginController{}.DoLogin)
+		adminRouters.GET("/loginOut", admin.LoginController{}.LogOut)
 
 		adminRouters.GET("/manager", admin.ManagerController{}.Index)
 		adminRouters.GET("/manager/add", admin.ManagerController{}.Add)
@@ -52,17 +51,6 @@ func AdminRoutersInit(r *gin.Engine) {
 		adminRouters.POST("/access/doEdit", admin.AccessController{}.DoEdit)
 		adminRouters.GET("/access/delete", admin.AccessController{}.Delete)
 
-		adminRouters.GET("/goods", admin.GoodsController{}.Index)
-		adminRouters.GET("/goods/add", admin.GoodsController{}.Add)
-		adminRouters.POST("/goods/doAdd", admin.GoodsController{}.DoAdd)
-		adminRouters.GET("/goods/edit", admin.GoodsController{}.Edit)
-		adminRouters.POST("/goods/doEdit", admin.GoodsController{}.DoEdit)
-		adminRouters.GET("/goods/delete", admin.GoodsController{}.Delete)
-		adminRouters.GET("/goods/goodsTypeAttribute", admin.GoodsController{}.GoodsTypeAttribute)
-		adminRouters.POST("/goods/imageUpload", admin.GoodsController{}.ImageUpload)
-		adminRouters.GET("/goods/changeGoodsImageColor", admin.GoodsController{}.ChangeGoodsImageColor)
-		adminRouters.GET("/goods/removeGoodsImage", admin.GoodsController{}.RemoveGoodsImage)
-
 		adminRouters.GET("/goodsCate", admin.GoodsCateController{}.Index)
 		adminRouters.GET("/goodsCate/add", admin.GoodsCateController{}.Add)
 		adminRouters.POST("/goodsCate/doAdd", admin.GoodsCateController{}.DoAdd)
@@ -84,11 +72,26 @@ func AdminRoutersInit(r *gin.Engine) {
 		adminRouters.POST("/goodsTypeAttribute/doEdit", admin.GoodsTypeAttributeController{}.DoEdit)
 		adminRouters.GET("/goodsTypeAttribute/delete", admin.GoodsTypeAttributeController{}.Delete)
 
+		adminRouters.GET("/goods", admin.GoodsController{}.Index)
+		adminRouters.GET("/goods/add", admin.GoodsController{}.Add)
+		adminRouters.GET("/goods/delete", admin.GoodsController{}.Delete)
+
+		adminRouters.GET("/goods/changeGoodsImageColor", admin.GoodsController{}.ChangeGoodsImageColor)
+		adminRouters.GET("/goods/removeGoodsImage", admin.GoodsController{}.RemoveGoodsImage)
+		adminRouters.POST("/goods/doAdd", admin.GoodsController{}.DoAdd)
+		adminRouters.GET("/goods/edit", admin.GoodsController{}.Edit)
+		adminRouters.POST("/goods/doEdit", admin.GoodsController{}.DoEdit)
+		adminRouters.GET("/goods/goodsTypeAttribute", admin.GoodsController{}.GoodsTypeAttribute)
+		adminRouters.POST("/goods/imageUpload", admin.GoodsController{}.ImageUpload)
+
 		adminRouters.GET("/nav", admin.NavController{}.Index)
 		adminRouters.GET("/nav/add", admin.NavController{}.Add)
 		adminRouters.POST("/nav/doAdd", admin.NavController{}.DoAdd)
 		adminRouters.GET("/nav/edit", admin.NavController{}.Edit)
 		adminRouters.POST("/nav/doEdit", admin.NavController{}.DoEdit)
 		adminRouters.GET("/nav/delete", admin.NavController{}.Delete)
+
+		adminRouters.GET("/setting", admin.SettingController{}.Index)
+		adminRouters.POST("/setting/doEdit", admin.SettingController{}.DoEdit)
 	}
 }
