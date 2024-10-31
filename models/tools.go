@@ -4,10 +4,12 @@ import (
 	"crypto/md5"
 	"errors"
 	"fmt"
+	"gopkg.in/ini.v1"
 	"html/template"
 	"io"
 	"os"
 	"path"
+	"reflect"
 	"strconv"
 	"time"
 
@@ -122,4 +124,54 @@ func UploadImg(c *gin.Context, picName string) (string, error) {
 	c.SaveUploadedFile(file, dst)
 	return dst, nil
 
+}
+
+// 通过列获取值
+func GetSettingFromColumn(columnName string) string {
+	//redis file
+	setting := Setting{}
+	DB.First(&setting)
+	//反射来获取
+	v := reflect.ValueOf(setting)
+	val := v.FieldByName(columnName).String()
+	return val
+}
+
+// 获取Oss的状态
+func GetOssStatus() int {
+	config, iniErr := ini.Load("./conf/app.ini")
+	if iniErr != nil {
+		fmt.Printf("Fail to read file: %v", iniErr)
+		os.Exit(1)
+	}
+	ossStatus, _ := StringToInt(config.Section("oss").Key("status").String())
+	return ossStatus
+}
+
+// 格式化输出图片
+func FormatImg(str string) string {
+	ossStatus := GetOssStatus()
+	fmt.Println(ossStatus)
+	if ossStatus == 1 {
+		return GetSettingFromColumn("OssDomain") + str
+	} else {
+		return "/" + str
+	}
+}
+
+func Sub(a int, b int) int {
+	return a - b
+}
+
+// 截取字符串
+func Substr(str string, start, end int) string {
+	rs := []rune(str)
+	rl := len(rs)
+	if start < 0 || start > end || start > rl {
+		start = 0
+	}
+	if end < 0 || end > rl {
+		end = rl
+	}
+	return string(rs[start:end])
 }

@@ -1,0 +1,90 @@
+{{ define "oystershop/public/page_header.html" }}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="order by dede58.com"/>
+	<title>小米商城</title>
+	<link rel="stylesheet" type="text/css" href="static/oystershop/css/style.css">
+	<link rel="stylesheet" href="static/oystershop/css/swiper.min.css">
+
+	<script src="static/oystershop/js/jquery-1.10.1.js"></script>
+	<script src="static/oystershop/js/swiper.min.js"></script>
+	<script src="static/oystershop/js/base.js"> </script>
+
+
+</head>
+<body>
+<!-- start header -->
+<header>
+	<div class="top center">
+		<div class="left fl">
+			<ul>
+				{{$temp := .topNavList | len}}
+				{{$navLen := Sub $temp 1}}
+					{{range $key,$value := .topNavList}}
+						<li><a href="{{$value.Link}}" {{if eq $value.IsOpennew 2}} target="_blank" {{end}}>{{$value.Title}}</a></li>
+					{{if lt $key $navLen}}<li>|</li>{{end}}
+				{{end}}
+				<div class="clear"></div>
+			</ul>
+		</div>
+		<div class="right fr">
+			<div class="gouwuche fr"><a href="">购物车</a></div>
+			<div class="fr">
+				<ul>
+					<li><a href="./login.html" target="_blank">登录</a></li>
+					<li>|</li>
+					<li><a href="./register.html" target="_blank" >注册</a></li>
+					<li>|</li>
+					<li><a href="">消息通知</a></li>
+				</ul>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</header>
+<!--end header -->
+
+<!-- start banner_x -->
+<div class="banner_x center">
+	<a href="./index.html" target="_blank"><div class="logo fl"></div></a>
+	<a href=""><div class="ad_top fl"></div></a>
+	<div class="nav fl">
+		<ul class="clearfix" id="nav_list">
+			{{range $key,$value := .middleNavList}}
+			<li>
+				<a href="#" target="_blank">{{$value.Title}}</a>
+				<ol class="children-list clearfix">
+					{{range $k,$v := $value.GoodsItems}}
+					<li>
+						<a href="#">
+							<img src="{{$v.GoodsImg | FormatImg}}" alt="{{$v.Title}}" />
+							<p>{{$v.Price}}元</p>
+						</a>
+					</li>
+					{{end}}
+				</ol>
+
+			</li>
+			{{end}}
+		</ul>
+	</div>
+
+
+	<div class="search fr">
+		<form action="" method="post">
+			<div class="text fl">
+				<input type="text" class="shuru"  placeholder="小米6&nbsp;小米MIX现货">
+			</div>
+			<div class="submit fl">
+				<input type="submit" class="sousuo" value="搜索"/>
+			</div>
+			<div class="clear"></div>
+		</form>
+		<div class="clear"></div>
+	</div>
+</div>
+<!-- end banner_x -->
+{{end}}
