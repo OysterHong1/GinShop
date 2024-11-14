@@ -47,44 +47,4 @@
 </header>
 <!--end header -->
 
-<!-- start banner_x -->
-<div class="banner_x center">
-	<a href="./index.html" target="_blank"><div class="logo fl"></div></a>
-	<a href=""><div class="ad_top fl"></div></a>
-	<div class="nav fl">
-		<ul class="clearfix" id="nav_list">
-			{{range $key,$value := .middleNavList}}
-			<li>
-				<a href="#" target="_blank">{{$value.Title}}</a>
-				<ol class="children-list clearfix">
-					{{range $k,$v := $value.GoodsItems}}
-					<li>
-						<a href="#">
-							<img src="{{$v.GoodsImg | FormatImg}}" alt="{{$v.Title}}" />
-							<p>{{$v.Price}}元</p>
-						</a>
-					</li>
-					{{end}}
-				</ol>
-
-			</li>
-			{{end}}
-		</ul>
-	</div>
-
-
-	<div class="search fr">
-		<form action="" method="post">
-			<div class="text fl">
-				<input type="text" class="shuru"  placeholder="小米6&nbsp;小米MIX现货">
-			</div>
-			<div class="submit fl">
-				<input type="submit" class="sousuo" value="搜索"/>
-			</div>
-			<div class="clear"></div>
-		</form>
-		<div class="clear"></div>
-	</div>
-</div>
-<!-- end banner_x -->
 {{end}}
