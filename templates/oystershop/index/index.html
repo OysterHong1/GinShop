@@ -53,7 +53,11 @@
 			{{range $key,$value := .goodsCateList}}
 			<li>
 
-				<a href="#">{{$value.Title}}</a>
+				{{if eq $value.Link ""}}
+				<a href="category{{$value.Id}}" target="_blank">{{$value.Title}}</a>
+				{{else}}
+				<a href="{{$value.Link}}" target="_blank">{{$value.Title}}</a>
+				{{end}}
 
 				<div class="pop">
 					<ol class="cate_list clear">
@@ -61,10 +65,17 @@
 						{{range $k,$v := $value.GoodsCateItems}}
 						<li>
 							<div class="xuangou_left">
-								<a href="#" class="clearfix">
+								{{if eq $v.Link ""}}
+								<a href="category{{$v.Id}}" target="_blank" class="clearfix">
 									<div class="img fl"><img src="{{$v.CateImg | FormatImg}}" alt="{{$v.Title}}"></div>
 									<span class="fl">{{$v.Title}}</span>
 								</a>
+								{{else}}
+								<a href="{{$v.Link}}" target="_blank" class="clearfix">
+									<div class="img fl"><img src="{{$v.CateImg | FormatImg}}" alt="{{$v.Title}}"></div>
+									<span class="fl">{{$v.Title}}</span>
+								</a>
+								{{end}}
 							</div>
 						</li>
 

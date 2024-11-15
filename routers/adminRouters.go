@@ -15,6 +15,7 @@ func AdminRoutersInit(r *gin.Engine) {
 		adminRouters.GET("/welcome", admin.MainController{}.Welcome)
 		adminRouters.GET("/changeStatus", admin.MainController{}.ChangeStatus)
 		adminRouters.GET("/changeNum", admin.MainController{}.ChangeNum)
+		adminRouters.GET("/flushAll", admin.MainController{}.FlushAll)
 
 		adminRouters.GET("/login", admin.LoginController{}.Index)
 		adminRouters.GET("/captcha", admin.LoginController{}.Captcha)
@@ -93,5 +94,6 @@ func AdminRoutersInit(r *gin.Engine) {
 
 		adminRouters.GET("/setting", admin.SettingController{}.Index)
 		adminRouters.POST("/setting/doEdit", admin.SettingController{}.DoEdit)
+
 	}
 }

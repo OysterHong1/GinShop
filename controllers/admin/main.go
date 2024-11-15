@@ -9,7 +9,9 @@ import (
 	"net/http"
 )
 
-type MainController struct{}
+type MainController struct {
+	BaseController
+}
 
 func (con MainController) Index(c *gin.Context) {
 	//获取userinfo对应的session用于权限判断
@@ -117,4 +119,9 @@ func (con MainController) ChangeNum(c *gin.Context) {
 		"success": true,
 		"message": "修改数据成功",
 	})
+}
+
+func (con MainController) FlushAll(c *gin.Context) {
+	models.CacheDb.FlushAll()
+	con.Success(c, "清楚redis缓存成功", "/admin")
 }

@@ -1,33 +1,53 @@
 {{ define "oystershop/public/middle_nav.html" }}
-<!-- start banner_x -->
+<!-- 中间导航start banner_x -->
 <div class="banner_x center">
-	<a href="/" target="_blank"><div class="logo fl"></div></a>
+	<a href="/" target="_blank">
+		<div class="logo fl"></div>
+	</a>
+
 	<div class="nav fl">
 		<ul class="clearfix" id="nav_list">
 
 			<li class="link-category">
 				<a href="#">全部商品分类</a>
 
-				<!-- start banner_y -->
 				<div class="banner_y center">
+
+
 					<div class="nav">
 						<ul>
 
 							{{range $key,$value := .goodsCateList}}
 							<li>
 
-								<a href="#">{{$value.Title}}</a>
+
+								{{if eq $value.Link ""}}
+								<a href="category{{$value.Id}}">{{$value.Title}}</a>
+								{{else}}
+								<a href="{{$value.Link}}">{{$value.Title}}</a>
+								{{end}}
 
 								<div class="pop">
 									<ol class="cate_list clear">
 
 										{{range $k,$v := $value.GoodsCateItems}}
 										<li>
+
 											<div class="xuangou_left">
-												<a href="#" class="clearfix">
-													<div class="img fl"><img src="{{$v.CateImg | FormatImg}}" alt="{{$v.Title}}"></div>
+												{{if eq $v.Link ""}}
+
+												<a href="category{{$v.Id}}" class="clearfix">
+													<div class="img fl"><img src="{{$v.CateImg | FormatImg}}"
+																			 alt="{{$v.Title}}"></div>
 													<span class="fl">{{$v.Title}}</span>
 												</a>
+												{{else}}
+												<a href="{{$v.Link}}" class="clearfix">
+													<div class="img fl"><img src="{{$v.CateImg | FormatImg}}"
+																			 alt="{{$v.Title}}"></div>
+													<span class="fl">{{$v.Title}}</span>
+												</a>
+												{{end}}
 											</div>
 										</li>
 
@@ -40,10 +60,10 @@
 
 						</ul>
 					</div>
+
+
 				</div>
 			</li>
-
-
 
 			{{range $key,$value := .middleNavList}}
 			<li>
@@ -61,17 +81,16 @@
 
 			</li>
 			{{end}}
+
 		</ul>
 	</div>
-
-
 	<div class="search fr">
 		<form action="" method="post">
 			<div class="text fl">
-				<input type="text" class="shuru"  placeholder="小米6&nbsp;小米MIX现货">
+				<input type="text" class="shuru" placeholder="小米6&nbsp;小米MIX现货">
 			</div>
 			<div class="submit fl">
-				<input type="submit" class="sousuo" value="搜索"/>
+				<input type="submit" class="sousuo" value="搜索" />
 			</div>
 			<div class="clear"></div>
 		</form>
@@ -79,4 +98,5 @@
 	</div>
 </div>
 <!-- end banner_x -->
+
 {{end}}

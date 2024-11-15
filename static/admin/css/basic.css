@@ -14,10 +14,10 @@ ul{
     padding: 10px 15px;
     margin-bottom: -1px;    
     color: #fff;
-    background-color: rgb(251, 210, 156) ;
-    border-color: rgb(251, 210, 156);
+    background-color: #428bca;
+    border-color: #428bca;
     
-    border-bottom: 2px solid rgb(251, 210, 156);
+    border-bottom: 2px solid #3a82bf;
 }
 
 .aside .list-group-item:first-child{
@@ -59,7 +59,6 @@ table .th{
 
 input[type=file]{
  	display: inline;
-
 }
 
 
@@ -100,7 +99,7 @@ input[type=file]{
     padding: 6px 0px;
 }
 
-.input-form li input[type="text"],.input-form li input[type="password"]{
+.input-form li input[type="text"],.input-form li input[type="password"],.input-form li textarea{
     width: 300px;
 }
 .nav-tabs{
@@ -111,8 +110,13 @@ input[type=file]{
     border: 1px solid #eee;
 }
 
-/*解决webuploader按钮失效*/
-.photoUploader div:nth-child(2){width:100%!important;height:100%!important;}
+.input-form li span{
+    display: inline-block;
+    min-width: 90px;
+    text-align: right;
+}
+/* 解决webuploader按钮失效的方法 */
+#photoUploader div:nth-child(2){width:100%!important;height:100%!important;}   
 
 #photoUploader{
     margin: 20px auto;
@@ -125,18 +129,18 @@ input[type=file]{
 
 }
 .goods_image_list li{
-    width:  120px;
-    float: left;
-    margin-right: 10px;
+    width:  120px;   
+    float: left;    
+    margin-right: 20px;
     border-bottom: none;
     position: relative;
     text-align: center;
 }
 .goods_image_list li img{
-    width:  120px;
+    width:  120px;   
 }
 
-/*修改图库布局*/
+/*修改图库的布局*/
 .goods_image_list li .color_list{
     margin-top: 20px;
 }
