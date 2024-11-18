@@ -10,5 +10,6 @@ func DefaultRoutersInit(r *gin.Engine) {
 	{
 		defaultRouters.GET("/", oystershop.DefaultController{}.Index)
 		defaultRouters.GET("/category:id", oystershop.ProductController{}.Category)
+		defaultRouters.GET("/detail", oystershop.ProductController{}.Detail)
 	}
 }

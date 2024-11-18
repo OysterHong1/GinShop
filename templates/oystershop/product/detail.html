@@ -1,0 +1,275 @@
+{{ define "oystershop/product/detail.html" }}
+
+{{ template "oystershop/public/page_header.html" .}}
+{{ template "oystershop/public/middle_nav.html" .}}
+
+<link rel="stylesheet" href="static/oystershop/css/product.css">
+
+
+<div class="jieshao mt20 w">
+	<div class="left fl">
+		<div class="swiper-container">
+			<div class="swiper-wrapper item_focus">
+
+				{{range $key,$value := .goodsImage}}
+				<div class="swiper-slide">
+					<img src="{{$value.ImgUrl | FormatImg}}" />
+				</div>
+				{{end}}
+			</div>
+
+			<div class="swiper-pagination"></div>
+
+
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
+
+		</div>
+
+
+
+	</div>
+	<div class="right fr">
+		<div class="h3 ml20 mt20">{{.goods.Title}}</div>
+		<div class="jianjie mr40 ml20 mt10">{{.goods.SubTitle}}</div>
+		<div class="jiage ml20 mt10">{{.goods.Price}}元 　<span class="old_price">{{.goods.MarketPrice}}元</span></div>
+		<div class="ft20 ml20 mt20">选择版本</div>
+		<div class="xzbb ml20 mt10 clearfix">
+
+			{{$goodsId := .goods.Id}}
+			{{range $key,$value := .relationGoods}}
+			<div class="banben fl {{if eq $value.Id $goodsId}}active{{end}}">
+				<a href="detail?id={{$value.Id}}">
+					<span>{{$value.GoodsVersion}}</span>
+					<span>{{$value.Price}}元</span>
+				</a>
+			</div>
+			{{end}}
+
+
+		</div>
+		<div class="ft20 ml20 mt10">选择颜色</div>
+		<div class="xzbb ml20 mt10 clearfix">
+
+
+			{{range $key,$value:=.goodsColor}}
+			<div class="banben fl">
+				<a>
+					<span class="yuandian" style="background:{{$value.ColorValue}}"></span>
+					<span class="yanse">{{$value.ColorName}}</span>
+				</a>
+			</div>
+			{{end}}
+
+
+
+
+		</div>
+		<div class="xqxq mt10 ml20">
+			<div class="top1 mt10">
+				<div class="left1 fl">{{.goods.GoodsVersion}} <span>红色</span></div>
+				<div class="right1 fr">{{.goods.Price}}元</div>
+				<div class="clear"></div>
+			</div>
+			<div class="bot mt20 ft20 ftbc">总计：{{.goods.Price}}元</div>
+		</div>
+		<div class="xiadan ml20 mt10">
+			<input class="jrgwc" type="button" name="jrgwc" value="加入购物车" />
+
+
+
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+
+<div class="container clearfix">
+
+
+	<div class="c_left">
+
+		<h2>看了又看</h2>
+
+		<div class="item">
+
+			<a target="_blank" href="#">
+
+				<img src="image/liebiao_hongmin4.jpg" />
+
+				<p class="price recommendLookPrice4183081">￥31.90</p>
+
+				<p>三利 纯棉A类标准简约素雅大浴巾 70×140cm 男女同款 柔软舒适吸水裹身巾 豆绿</p>
+
+			</a>
+
+
+		</div>
+		<div class="item">
+
+			<a target="_blank" href="#">
+
+				<img src="image/liebiao_hongmin4.jpg" />
+
+				<p class="price recommendLookPrice4183081">￥31.90</p>
+
+				<p>三利 纯棉A类标准简约素雅大浴巾 70×140cm 男女同款 柔软舒适吸水裹身巾 豆绿</p>
+
+			</a>
+
+
+		</div>
+		<div class="item">
+
+			<a target="_blank" href="#">
+
+				<img src="image/liebiao_hongmin4.jpg" />
+
+				<p class="price recommendLookPrice4183081">￥31.90</p>
+
+				<p>三利 纯棉A类标准简约素雅大浴巾 70×140cm 男女同款 柔软舒适吸水裹身巾 豆绿</p>
+
+			</a>
+
+
+		</div>
+	</div>
+
+
+	<div class="c_right">
+		<ul class="detail_list clearfix">
+
+			<li class="">详情描述</li>
+
+			<li class="">规格参数</li>
+
+			<li class="">用户评价</li>
+		</ul>
+
+
+		<div class="detail_info">
+
+			<div class="detail_info_item">
+				{{Str2Html .goods.GoodsContent}}
+			</div>
+			<div class="detail_info_item">
+				<ul>
+
+					<li class="row clearfix">
+
+						<div class="span5">
+
+							<h2>充电与电池</h2>
+						</div>
+
+						<div class="span15">
+
+							有线充电支持 QC 4.0+ 快充<br>
+							USB Type-C 双面充电接口<br>
+							内置电池，免更换<br>
+							标配 18W QC3.0 充电器 &amp; 附赠 10W 无线充电器
+						</div>
+
+
+					</li>
+
+
+					<li class="row clearfix">
+
+						<div class="span5">
+
+							<h2>充电与电池</h2>
+						</div>
+
+						<div class="span15">
+
+							有线充电支持 QC 4.0+ 快充<br>
+							USB Type-C 双面充电接口<br>
+							内置电池，免更换<br>
+							标配 18W QC3.0 充电器 &amp; 附赠 10W 无线充电器
+						</div>
+
+
+					</li>
+
+				</ul>
+			</div>
+
+
+			<div class="detail_info_item">
+				<ul class="comment_list">
+					<li>
+						<div>
+							<img src="https://www.itying.com/themes/itying/images/stars5.gif">
+						</div>
+						<p>这已经是第六部了，一如既往地好用。美中不足得是，尾插和数据线的链接口，用过一段时间，就会有充电接触不良的问题，希望厂家将来有改进。</p>
+
+						<p class="eval-order-info"> <span class="eval-time">2018-11-18
+								14:00:35</span><span>月岩白</span><span>6GB+64GB</span><span></span></p>
+
+					</li>
+					<li>
+						<div>
+							<img src="https://www.itying.com/themes/itying/images/stars5.gif">
+						</div>
+						<p>这已经是第六部了，一如既往地好用。美中不足得是，尾插和数据线的链接口，用过一段时间，就会有充电接触不良的问题，希望厂家将来有改进。</p>
+
+						<p class="eval-order-info"> <span class="eval-time">2018-11-18
+								14:00:35</span><span>月岩白</span><span>6GB+64GB</span><span></span></p>
+
+					</li>
+					<li>
+						<div>
+							<img src="https://www.itying.com/themes/itying/images/stars5.gif">
+						</div>
+						<p>这已经是第六部了，一如既往地好用。美中不足得是，尾插和数据线的链接口，用过一段时间，就会有充电接触不良的问题，希望厂家将来有改进。</p>
+
+						<p class="eval-order-info"> <span class="eval-time">2018-11-18
+								14:00:35</span><span>月岩白</span><span>6GB+64GB</span><span></span></p>
+
+					</li>
+					<li>
+						<div>
+							<img src="https://www.itying.com/themes/itying/images/stars5.gif">
+						</div>
+						<p>这已经是第六部了，一如既往地好用。美中不足得是，尾插和数据线的链接口，用过一段时间，就会有充电接触不良的问题，希望厂家将来有改进。</p>
+
+						<p class="eval-order-info"> <span class="eval-time">2018-11-18
+								14:00:35</span><span>月岩白</span><span>6GB+64GB</span><span></span></p>
+
+					</li>
+				</ul>
+			</div>
+
+
+		</div>
+
+	</div>
+
+
+
+</div>
+
+<script>
+	$(function () {
+		$('.detail_info .detail_info_item:first').addClass('active');
+		$('.detail_list li:first').addClass('active');
+		$('.detail_list li').click(function () {
+			var index = $(this).index();
+			$(this).addClass('active').siblings().removeClass('active');
+			$('.detail_info .detail_info_item').removeClass('active').eq(index).addClass('active');
+
+		})
+	})
+</script>
+
+
+{{template "oystershop/public/page_footer.html" .}}
+
+
+</body>
+
+</html>
+
+{{end}}
