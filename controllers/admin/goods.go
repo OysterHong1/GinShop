@@ -461,7 +461,7 @@ func (con GoodsController) ImageUpload(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{
-		"link": "/" + imgDir,
+		"link": imgDir,
 	})
 }
 

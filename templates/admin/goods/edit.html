@@ -175,7 +175,7 @@
                                         {{$goodsColor:=.goodsColorList}}
                                         {{range $key,$value := .goodsImageList}}
                                         <li>
-                                            <img  src="{{$value.ImgUrl}}" class="pic" />
+                                            <img  src="/{{$value.ImgUrl}}" class="pic" />
                                             <div class="color_list">
                                                 <select class="relation_goods_color" goods_image_id="{{$value.Id}}">
                                                     <option value="0">关联颜色</option>

@@ -22,7 +22,7 @@ func (con ProductController) Category(c *gin.Context) {
 		page = 1
 	}
 	//每一页显示的数量
-	pageSize := 3
+	pageSize := 5
 
 	//获取当前分类
 	currentCate := models.GoodsCate{}
@@ -120,4 +120,29 @@ func (con ProductController) Detail(c *gin.Context) {
 		"goodsImage":    goodsImage,
 		"goodsAttr":     goodsAttr,
 	})
+}
+
+func (con ProductController) GetImgList(c *gin.Context) {
+	goodsId, err1 := models.StringToInt(c.Query("goods_id"))
+	colorId, err2 := models.StringToInt(c.Query("color_id"))
+
+	goodsImageList := []models.GoodsImage{}
+	err3 := models.DB.Where("goods_id=? AND color_id=?", goodsId, colorId).Find(&goodsImageList).Error
+	if err1 != nil || err2 != nil || err3 != nil {
+		c.JSON(200, gin.H{
+			"success": false,
+			"result":  "",
+			"message": "参数错误",
+		})
+	} else {
+		//如果goodsImageList长度为0，即后台没有配置关联颜色,需要返回所有图片
+		if len(goodsImageList) == 0 {
+			models.DB.Where("goods_id=?", goodsId).Find(&goodsImageList)
+		}
+		c.JSON(200, gin.H{
+			"success": true,
+			"result":  goodsImageList,
+			"message": "获取数据成功",
+		})
+	}
 }

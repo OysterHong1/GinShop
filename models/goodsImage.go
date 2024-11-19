@@ -1,13 +1,13 @@
 package models
 
 type GoodsImage struct {
-	Id      int
-	GoodsId int
-	ImgUrl  string
-	ColorId int
-	Sort    int
-	AddTime int
-	Status  int
+	Id      int    `json:"id"`
+	GoodsId int    `json:"goods_id"`
+	ImgUrl  string `json:"img_url"`
+	ColorId int    `json:"color_id"`
+	Sort    int    `json:"sort"`
+	AddTime int    `json:"add_time"`
+	Status  int    `json:"status"`
 }
 
 func (GoodsImage) TableName() string {

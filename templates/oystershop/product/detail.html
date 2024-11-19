@@ -9,8 +9,7 @@
 <div class="jieshao mt20 w">
 	<div class="left fl">
 		<div class="swiper-container">
-			<div class="swiper-wrapper item_focus">
-
+			<div class="swiper-wrapper item_focus" id="item_focus">
 				{{range $key,$value := .goodsImage}}
 				<div class="swiper-slide">
 					<img src="{{$value.ImgUrl | FormatImg}}" />
@@ -19,16 +18,11 @@
 			</div>
 
 			<div class="swiper-pagination"></div>
-
-
 			<div class="swiper-button-next"></div>
 			<div class="swiper-button-prev"></div>
-
 		</div>
-
-
-
 	</div>
+
 	<div class="right fr">
 		<div class="h3 ml20 mt20">{{.goods.Title}}</div>
 		<div class="jianjie mr40 ml20 mt10">{{.goods.SubTitle}}</div>
@@ -49,13 +43,13 @@
 
 		</div>
 		<div class="ft20 ml20 mt10">选择颜色</div>
-		<div class="xzbb ml20 mt10 clearfix">
+		<div class="xzbb ml20 mt10 clearfix" id = "color_list">
 
 
 			{{range $key,$value:=.goodsColor}}
-			<div class="banben fl">
+			<div class="banben fl" goods_id="{{$goodsId}}" color_id="{{$value.Id}}">
 				<a>
-					<span class="yuandian" style="background:{{$value.ColorValue}}"></span>
+					<span class="yuandian" style= "background:{{$value.ColorValue}}"></span>
 					<span class="yanse">{{$value.ColorName}}</span>
 				</a>
 			</div>
@@ -67,7 +61,7 @@
 		</div>
 		<div class="xqxq mt10 ml20">
 			<div class="top1 mt10">
-				<div class="left1 fl">{{.goods.GoodsVersion}} <span>红色</span></div>
+				<div class="left1 fl">{{.goods.GoodsVersion}} <span id = "color_name"></span></div>
 				<div class="right1 fr">{{.goods.Price}}元</div>
 				<div class="clear"></div>
 			</div>
@@ -252,16 +246,7 @@
 </div>
 
 <script>
-	$(function () {
-		$('.detail_info .detail_info_item:first').addClass('active');
-		$('.detail_list li:first').addClass('active');
-		$('.detail_list li').click(function () {
-			var index = $(this).index();
-			$(this).addClass('active').siblings().removeClass('active');
-			$('.detail_info .detail_info_item').removeClass('active').eq(index).addClass('active');
 
-		})
-	})
 </script>
 
 
