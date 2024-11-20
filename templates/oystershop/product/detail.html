@@ -149,43 +149,20 @@
 			</div>
 			<div class="detail_info_item">
 				<ul>
+					{{range $key,$value := .goodsAttr}}
+						{{if ne $value.AttributeValue ""}}
+						<li class="row clearfix">
+							<div class="span5">
 
-					<li class="row clearfix">
+								<h2>{{$value.AttributeTitle}}</h2>
+							</div>
 
-						<div class="span5">
-
-							<h2>充电与电池</h2>
-						</div>
-
-						<div class="span15">
-
-							有线充电支持 QC 4.0+ 快充<br>
-							USB Type-C 双面充电接口<br>
-							内置电池，免更换<br>
-							标配 18W QC3.0 充电器 &amp; 附赠 10W 无线充电器
-						</div>
-
-
-					</li>
-
-
-					<li class="row clearfix">
-
-						<div class="span5">
-
-							<h2>充电与电池</h2>
-						</div>
-
-						<div class="span15">
-
-							有线充电支持 QC 4.0+ 快充<br>
-							USB Type-C 双面充电接口<br>
-							内置电池，免更换<br>
-							标配 18W QC3.0 充电器 &amp; 附赠 10W 无线充电器
-						</div>
-
-
-					</li>
+							<div class="span15">
+								{{$value.AttributeValue | FormatAttr | Str2Html}}
+							</div>
+						</li>
+						{{end}}
+					{{end}}
 
 				</ul>
 			</div>

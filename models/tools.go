@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"errors"
 	"fmt"
+	"github.com/gomarkdown/markdown"
 	"gopkg.in/ini.v1"
 	"html/template"
 	"io"
@@ -11,6 +12,7 @@ import (
 	"path"
 	"reflect"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -174,4 +176,18 @@ func Substr(str string, start, end int) string {
 		end = rl
 	}
 	return string(rs[start:end])
+}
+
+func FormatAttr(str string) string {
+
+	tempSlice := strings.Split(str, "\n")
+	var tempStr string
+
+	for _, v := range tempSlice {
+		md := []byte(v)
+		output := markdown.ToHTML(md, nil, nil)
+		tempStr += string(output)
+	}
+
+	return tempStr
 }

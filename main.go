@@ -17,6 +17,7 @@ func main() {
 		"Sub":        models.Sub,
 		"FormatImg":  models.FormatImg,
 		"Substr":     models.Substr,
+		"FormatAttr": models.FormatAttr,
 	}) //配置自定义模板函数
 	//自定义模板函数要放在模板加载之前
 
