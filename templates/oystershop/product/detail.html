@@ -22,15 +22,16 @@
 			<div class="swiper-button-prev"></div>
 		</div>
 	</div>
-
 	<div class="right fr">
 		<div class="h3 ml20 mt20">{{.goods.Title}}</div>
 		<div class="jianjie mr40 ml20 mt10">{{.goods.SubTitle}}</div>
 		<div class="jiage ml20 mt10">{{.goods.Price}}元 　<span class="old_price">{{.goods.MarketPrice}}元</span></div>
+		{{$goodsId := .goods.Id}}
+		{{$relationGoodsLen := len .relationGoods}}
+		{{if gt $relationGoodsLen 0}}
 		<div class="ft20 ml20 mt20">选择版本</div>
 		<div class="xzbb ml20 mt10 clearfix">
 
-			{{$goodsId := .goods.Id}}
 			{{range $key,$value := .relationGoods}}
 			<div class="banben fl {{if eq $value.Id $goodsId}}active{{end}}">
 				<a href="detail?id={{$value.Id}}">
@@ -42,26 +43,44 @@
 
 
 		</div>
+		{{end}}
+
+
+		{{$goodsColorLen := len .goodsColor}}
+		{{if gt $relationGoodsLen 0}}
 		<div class="ft20 ml20 mt10">选择颜色</div>
-		<div class="xzbb ml20 mt10 clearfix" id = "color_list">
-
-
+		<div class="xzbb ml20 mt10 clearfix" id="color_list">
 			{{range $key,$value:=.goodsColor}}
 			<div class="banben fl" goods_id="{{$goodsId}}" color_id="{{$value.Id}}">
-				<a>
-					<span class="yuandian" style= "background:{{$value.ColorValue}}"></span>
-					<span class="yanse">{{$value.ColorName}}</span>
-				</a>
+
+				<span class="yuandian" style="background:{{$value.ColorValue}}"></span>
+				<span class="yanse">{{$value.ColorName}}</span>
+
+			</div>
+			{{end}}
+		</div>
+		{{end}}
+
+
+		{{$goodsItemAttrListLen := len .goodsItemAttrList}}
+		{{if gt $goodsItemAttrListLen 0}}
+
+		{{range $key,$value := .goodsItemAttrList}}
+		<div class="ft20 ml20 mt20">{{$value.Cate}}</div>
+		<div class="xzbb ml20 mt10 clearfix">
+			{{range $k,$v := $value.List}}
+			<div class="banben fl">
+				<span>{{$v}}</span>
 			</div>
 			{{end}}
 
-
-
-
 		</div>
+		{{end}}
+
+		{{end}}
 		<div class="xqxq mt10 ml20">
 			<div class="top1 mt10">
-				<div class="left1 fl">{{.goods.GoodsVersion}} <span id = "color_name"></span></div>
+				<div class="left1 fl">{{.goods.GoodsVersion}} <span id="color_name"></span></div>
 				<div class="right1 fr">{{.goods.Price}}元</div>
 				<div class="clear"></div>
 			</div>
@@ -69,9 +88,6 @@
 		</div>
 		<div class="xiadan ml20 mt10">
 			<input class="jrgwc" type="button" name="jrgwc" value="加入购物车" />
-
-
-
 		</div>
 	</div>
 	<div class="clear"></div>
