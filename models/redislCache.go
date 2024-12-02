@@ -62,7 +62,7 @@ func (c cacheDb) Set(key string, value interface{}, expiration int) {
 func (c cacheDb) Get(key string, obj interface{}) bool {
 	if redisEnable {
 		valueStr, err1 := rdbClient.Get(ctx, key).Result()
-		if err1 == nil && valueStr != "" {
+		if err1 == nil && valueStr != "" && valueStr != "[]" {
 			err2 := json.Unmarshal([]byte(valueStr), obj)
 			return err2 == nil
 		}

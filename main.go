@@ -15,6 +15,7 @@ func main() {
 		"UnixToTime": models.UnixToTime, //注册模板函数
 		"Str2Html":   models.Str2Html,
 		"Sub":        models.Sub,
+		"Mul":        models.Mul,
 		"FormatImg":  models.FormatImg,
 		"Substr":     models.Substr,
 		"FormatAttr": models.FormatAttr,

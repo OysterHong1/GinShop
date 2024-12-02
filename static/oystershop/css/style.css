@@ -9,14 +9,14 @@ a{border:none;text-decoration: none;color:#000;}
 .fl{float: left;}
 .fr{float: right;}
 .clear{clear:both;}
-.mt20{margin-top: 20px;}
+.mt20{margin-top: 24px; color: #666; }
 .mt10{margin-top: 10px;}
 .ml20{margin-left: 20px;}
 .ml40{margin-left: 40px;}
 .mr40{margin-right: 40px;}
 .mb20{margin-bottom: 20px;}
 .border2{border:2px solid #ff6700;}
-.ft20{font-size: 20px;}
+.ft20{font-size: 20px; } 
 .ftbc{color: #ff6700;font-weight: bold;}
 .pr{padding-right: 40px;}
 
@@ -132,9 +132,9 @@ header .top .right ul li.userinfo ol li a:hover{
 	background:#fff;
 	z-index: 1001;
 	width:100%;
-	height: 200px;
-
+	height: 220px;
 	border-top: 1px solid #eee;
+	border-bottom: 2px solid #eee;
 	display: none;
 }
 
@@ -153,14 +153,19 @@ header .top .right ul li.userinfo ol li a:hover{
 .children-list li img{
 	width:120px;
 	height: 120px;
-	margin: 0 auto;
+	margin-left: 40px;
 	float: left;
 }
 .children-list li a p{
 	padding: 0px;
 	text-align: center;
-	height: 22px;
 	line-height: 22px;
+	height: 22px;
+	float: left;
+	width: 100%;
+	overflow: hidden;
+	font-size: 14px;
+	color: #666;
 }
 
 .banner_x .search{width: 308px;height: 100px;line-height: 100px;}
@@ -193,7 +198,7 @@ header .top .right ul li.userinfo ol li a:hover{
 .banner_y .nav ul{padding: 20px 0;position:relative;}
 .banner_y .nav ul>li{	
 	display: block;
-	width: 100%;
+	width: 174px;
 	height: 40px;
 	line-height:40px;
 	font-size: 14px;
@@ -334,11 +339,14 @@ header .top .right ul li.userinfo ol li a:hover{
 .danpin .main .mingxing .sub_mingxing{padding: 37px;}
 .danpin .main .mingxing .sub_mingxing a img{display:block;width: 160px;height: 160px;opacity: 0.85}
 .danpin .main .mingxing .sub_mingxing a img:hover{width: 160px;height: 160px;opacity: 1;}
-.danpin .main .mingxing .pinpai{width: 234px;height: 14px;line-height: 14px;text-align: center;margin-top: -10px;}
+.danpin .main .mingxing .pinpai{width: 234px;text-align: center;margin-top: -10px;}
 .danpin .main .mingxing .pinpai a{font-size: 14px;color:#333;}
 .danpin .main .mingxing .youhui{width: 234px;height: 12px;line-height: 12px;margin:15px 0;font-size: 12px;color: rgb(176,176,176);text-align: center;}
 .danpin .main .mingxing .jiage{font-size: 14px;text-align: center;color:#ff6709;}
 
+.price{
+	color:#ff6709!important;
+}
 /*搜索筛选*/
 .search-filter{
 	width: 1226px;
@@ -430,6 +438,7 @@ header .top .right ul li.userinfo ol li a:hover{
 	margin-right: 5px;
 	margin-bottom: 5px;
 	border:1px solid #e0e0e0;
+	text-align: center;
 }
 .jieshao .right .xzbb .banben a{
 	display:block;
