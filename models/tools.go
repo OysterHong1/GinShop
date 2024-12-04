@@ -8,6 +8,7 @@ import (
 	"gopkg.in/ini.v1"
 	"html/template"
 	"io"
+	"math/rand"
 	"os"
 	"path"
 	"reflect"
@@ -194,4 +195,13 @@ func FormatAttr(str string) string {
 	}
 
 	return tempStr
+}
+
+func GetRandomNum() string {
+	var str string
+	for i := 0; i < 4; i++ {
+		current := rand.Intn(10)
+		str += IntToString(current)
+	}
+	return str
 }

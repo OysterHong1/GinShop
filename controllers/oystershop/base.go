@@ -49,10 +49,15 @@ func (con BaseController) Render(c *gin.Context, tpl string, data map[string]int
 		middleNavList[i].GoodsItems = goodsList
 	}
 
+	//获取cookie中储存的用户信息
+	userinfo := models.User{}
+	models.Cookie.Get(c, "userinfo", &userinfo)
+
 	renderData := gin.H{
 		"topNavList":    topNavList,
 		"goodsCateList": goodsCateList,
 		"middleNavList": middleNavList,
+		"userinfo":      userinfo,
 	}
 	for key, v := range data {
 		renderData[key] = v

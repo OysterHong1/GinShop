@@ -24,5 +24,14 @@ func DefaultRoutersInit(r *gin.Engine) {
 		defaultRouters.GET("/cart/changeAllCart", oystershop.CartController{}.ChangeAllCart)
 		defaultRouters.GET("/cart/delCart", oystershop.CartController{}.DelCart)
 
+		defaultRouters.GET("/pass/login", oystershop.PassController{}.Login)
+		defaultRouters.GET("/pass/captcha", oystershop.PassController{}.Captcha)
+
+		defaultRouters.GET("/pass/registerStep1", oystershop.PassController{}.RegisterStep1)
+		defaultRouters.GET("/pass/registerStep2", oystershop.PassController{}.RegisterStep2)
+		defaultRouters.GET("/pass/registerStep3", oystershop.PassController{}.RegisterStep3)
+		defaultRouters.GET("/pass/sendCode", oystershop.PassController{}.SendCode)
+		defaultRouters.GET("/pass/validateSmsCode", oystershop.PassController{}.ValidateSmsCode)
+		defaultRouters.POST("/pass/doRegister", oystershop.PassController{}.DoRegister)
 	}
 }

@@ -1,0 +1,108 @@
+{{ define "oystershop/pass/register_step2.html" }}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="order by dede58.com" />
+	<title>用户注册</title>
+	<link rel="stylesheet" href="/static/oystershop/css/pass.css" />
+	<script src="/static/oystershop/js/jquery-1.10.1.js"></script>
+</head>
+
+<body class="register_page">
+	<div class="regist">
+		<div class="regist_center">
+			<div class="logo">
+				<img src="/static/oystershop/image/logo_top.png" alt="nest小米">
+			</div>
+			<div class="regist_top">
+				<h2>注册小米账户</h2>
+			</div>
+			<div class="regist_main center">
+				<p>验证码已通过短信发送至{{.phone}}，请输入完成验证。手机绑定是为保障用户的信息真实性和帐号安全性</p>
+				<br>
+				<br>
+				<div class="error"></div>
+				<div class="yzm">
+
+					<input type="hidden" id="phone" name="phone" value="{{.phone}}">
+					<input type="hidden" id="sign" name="sign" value="{{.sign}}">
+					<input type="hidden" id="verifyCode" name="verifyCode" value="{{.verifyCode}}">
+
+					<input type="text" id="smsCode" name="smsCode" placeholder="请输入验证码" />
+					<button id="sendCode">重新发送</button>
+				</div>
+				<div class="regist_submit">
+					<input class="submit" id="nextStep" type="button" name="submit" value="下一步">
+					<br>
+					<input class="return" id="returnButton" type="button" name="return" value="返回">
+				</div>
+			</div>
+
+			<script>
+				$(function () {
+					var timer = 10;
+					function Countdown() {
+						if (timer >= 1) {
+							timer -= 1;
+							$("#sendCode").attr('disabled', true);
+							$("#sendCode").html('重新发送(' + timer + ')');
+							setTimeout(function () {
+								Countdown();
+							}, 1000);
+						} else {
+							$("#sendCode").attr('disabled', false)
+							$("#sendCode").html('重新发送');
+						}
+					}
+					Countdown();
+
+					$("#sendCode").click(function () {
+						timer = 10;
+						Countdown();
+						var phone = $("#phone").val()
+						var verifyCode = $("#verifyCode").val()
+						var captchaId = "resend"
+
+						//重新请求接口发送短信
+						$.get("/pass/sendCode", { "phone": phone, "verifyCode": verifyCode, "captchaId": captchaId }, function (response) {
+							console.log(response)
+						})
+					})
+				})
+
+				//验证验证码		
+				$(function () {
+
+					$("#nextStep").click(function (e) {
+						$(".error").html()
+						var sign = $('#sign').val();
+						var smsCode = $('#smsCode').val();
+
+						$.get('/pass/validateSmsCode', { sign: sign, smsCode: smsCode }, function (response) {
+							console.log(response)
+							if (response.success == true) {
+								location.href = "/pass/registerStep3?sign=" + sign + "&smsCode=" + smsCode
+							} else {
+								$(".error").html("Error：" + response.message)
+							}
+						})
+
+					})
+					
+					$("#returnButton").click(function(){
+							location.href="/pass/registerStep1"
+					})
+
+				})
+			</script>
+
+		</div>
+	</div>
+
+</body>
+
+</html>
+
+{{end}}

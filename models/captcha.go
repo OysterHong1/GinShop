@@ -11,14 +11,14 @@ import (
 var store = base64Captcha.DefaultMemStore
 
 // 获取验证码
-func MakeCaptcha() (string, string, error) {
+func MakeCaptcha(height int, width int, length int) (string, string, error) {
 	var driver base64Captcha.Driver
 	driverString := base64Captcha.DriverString{
-		Height:          40,
-		Width:           100,
+		Height:          height,
+		Width:           width,
 		NoiseCount:      0,
 		ShowLineOptions: 2 | 4,
-		Length:          2,
+		Length:          length,
 		Source:          "1234567890qwertyuioplkjhgfdsazxcvbnm",
 		BgColor: &color.RGBA{
 			R: 3,
