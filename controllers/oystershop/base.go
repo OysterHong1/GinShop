@@ -50,8 +50,29 @@ func (con BaseController) Render(c *gin.Context, tpl string, data map[string]int
 	}
 
 	//获取cookie中储存的用户信息
-	userinfo := models.User{}
-	models.Cookie.Get(c, "userinfo", &userinfo)
+	user := models.User{}
+	isLogin := models.Cookie.Get(c, "userinfo", &user)
+	models.Cookie.Get(c, "userinfo", &user)
+	var userinfo string
+	if isLogin && len(user.Phone) == 11 {
+		userinfo = fmt.Sprintf(`<li class="userinfo">
+			<a href="#">%v</a>		
+
+			<i class="i"></i>
+			<ol>
+				<li><a href="#">个人中心</a></li>
+
+				<li><a href="#">喜欢</a></li>
+
+				<li><a href="/pass/loginOut">退出登录</a></li>
+			</ol>								
+		</li> `, user.Phone)
+	} else {
+		userinfo = fmt.Sprintf(`<li><a href="/pass/login">登录</a></li>
+		<li>|</li>
+		<li><a href="/pass/registerStep1">注册</a></li>
+		<li>|</li>`)
+	}
 
 	renderData := gin.H{
 		"topNavList":    topNavList,

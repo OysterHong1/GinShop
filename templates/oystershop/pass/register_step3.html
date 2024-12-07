@@ -40,7 +40,7 @@
 							</div>
 
 							<div class="regist_submit">
-									<input class="submit" id="nextStep" type="submit" name="submit" value="完成注册" >
+									<input class="submit" type="submit" name="submit" value="完成注册" >
 
 							</div>
 						</form>
@@ -49,25 +49,6 @@
 					
 				</div>
 			</div>
-			<script>
-			
-				$(function(){
-					$("#form").submit(function(){
-						$(".error").html("")
-						var password=$('#password').val();
-						var rpassword=$('#rpassword').val();
-						if(password.length<6){
-							$(".error").html("Error：密码的长度不能小于6位")						
-							return false;
-						}
-						if(password!=rpassword){							
-							$(".error").html("Error：密码和确认密码不一致")
-							return false;
-						}
-						return true;
-					})
-				})
-			</script>
 	</body>
 </html>
 {{end}}

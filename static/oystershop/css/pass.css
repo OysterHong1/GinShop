@@ -21,7 +21,7 @@ input:focus{border: 2px solid orange;}
 /*用户登录*/
 .top{width: 100%;height: 100px;background: #fff;}
 .top .logo{width: 1130px;height: 100px;}
-.form{width: 1130px;height:588px;background: url('../image/login_bg.jpg')no-repeat center center; }
+.form{width: 1130px;height:588px;background: url('../image/login_bg.jpg')no-repeat center center; margin: 0 auto;}
 .login{width: 400px;height: 470px;/*border:1px solid #ff6700;*/margin:30px auto;background: #444;color:#fff;margin-right: 0px;border-radius: 4px;}
 .login .login_center{width: 360px;margin: 10px auto;}
 .login .login_top{margin: 10px 0;}
@@ -163,4 +163,10 @@ footer .copyright:first-of-type{margin-top: 10px;}
 
 #captchaImg{
     cursor: pointer;
+}
+
+.error{
+    padding: 0px 0px 20px 0px;
+
+    color: red;
 }

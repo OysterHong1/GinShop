@@ -40,64 +40,6 @@
 				</div>
 			</div>
 
-			<script>
-				$(function () {
-					var timer = 10;
-					function Countdown() {
-						if (timer >= 1) {
-							timer -= 1;
-							$("#sendCode").attr('disabled', true);
-							$("#sendCode").html('重新发送(' + timer + ')');
-							setTimeout(function () {
-								Countdown();
-							}, 1000);
-						} else {
-							$("#sendCode").attr('disabled', false)
-							$("#sendCode").html('重新发送');
-						}
-					}
-					Countdown();
-
-					$("#sendCode").click(function () {
-						timer = 10;
-						Countdown();
-						var phone = $("#phone").val()
-						var verifyCode = $("#verifyCode").val()
-						var captchaId = "resend"
-
-						//重新请求接口发送短信
-						$.get("/pass/sendCode", { "phone": phone, "verifyCode": verifyCode, "captchaId": captchaId }, function (response) {
-							console.log(response)
-						})
-					})
-				})
-
-				//验证验证码		
-				$(function () {
-
-					$("#nextStep").click(function (e) {
-						$(".error").html()
-						var sign = $('#sign').val();
-						var smsCode = $('#smsCode').val();
-
-						$.get('/pass/validateSmsCode', { sign: sign, smsCode: smsCode }, function (response) {
-							console.log(response)
-							if (response.success == true) {
-								location.href = "/pass/registerStep3?sign=" + sign + "&smsCode=" + smsCode
-							} else {
-								$(".error").html("Error：" + response.message)
-							}
-						})
-
-					})
-					
-					$("#returnButton").click(function(){
-							location.href="/pass/registerStep1"
-					})
-
-				})
-			</script>
-
 		</div>
 	</div>
 

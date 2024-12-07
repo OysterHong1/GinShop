@@ -2,6 +2,7 @@ package routers
 
 import (
 	"GinShop/controllers/oystershop"
+	"GinShop/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
@@ -33,5 +34,9 @@ func DefaultRoutersInit(r *gin.Engine) {
 		defaultRouters.GET("/pass/sendCode", oystershop.PassController{}.SendCode)
 		defaultRouters.GET("/pass/validateSmsCode", oystershop.PassController{}.ValidateSmsCode)
 		defaultRouters.POST("/pass/doRegister", oystershop.PassController{}.DoRegister)
+		defaultRouters.POST("/pass/doLogin", oystershop.PassController{}.DoLogin)
+		defaultRouters.GET("/pass/loginOut", oystershop.PassController{}.LoginOut)
+		//判断用户权限
+		defaultRouters.GET("/buy/checkout", middlewares.InitUserAuthMiddleware, oystershop.BuyController{}.Checkout)
 	}
 }

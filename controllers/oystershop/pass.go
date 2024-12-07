@@ -6,6 +6,7 @@ import (
 	"github.com/gin-contrib/sessions"
 	"net/http"
 	"regexp"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -28,10 +29,12 @@ func (con PassController) Captcha(c *gin.Context) {
 }
 
 func (con PassController) Login(c *gin.Context) {
-	//生成随机数
-	fmt.Println(models.GetRandomNum())
-	// c.HTML(http.StatusOK, "oystershop/pass/login.html", gin.H{})
-	c.String(200, "login")
+	prevPage := c.Request.Referer()
+
+	c.HTML(http.StatusOK, "oystershop/pass/login.html", gin.H{
+		"prevPage": prevPage,
+	})
+
 }
 
 func (con PassController) RegisterStep1(c *gin.Context) {
@@ -325,4 +328,53 @@ func (con PassController) ValidateSmsCode(c *gin.Context) {
 		"success": true,
 		"message": "验证码输入正确",
 	})
+}
+
+func (con PassController) DoLogin(c *gin.Context) {
+
+	phone := strings.Trim(c.PostForm("phone"), " ")
+	password := c.PostForm("password")
+	captchaId := c.PostForm("captchaId")
+	captchaVal := c.PostForm("captchaVal")
+
+	//1、验证图形验证码是否合法
+	if flag := models.VerifyCaptcha(captchaId, captchaVal); !flag {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": "图形验证码不正确",
+		})
+		return
+	}
+
+	//2、验证用户名密码是否正确
+	password = models.Md5(strings.Trim(password, " "))
+	userList := []models.User{}
+	models.DB.Where("phone = ? AND password = ?", phone, password).Find(&userList)
+	if len(userList) > 0 {
+		//执行登录
+		models.Cookie.Set(c, "userinfo", userList[0])
+		c.JSON(http.StatusOK, gin.H{
+			"success": true,
+			"message": "用户登录成功",
+		})
+
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": "用户名或者密码错误",
+		})
+		return
+	}
+
+}
+
+func (con PassController) LoginOut(c *gin.Context) {
+	//删除cookie里面的userinfo执行跳转
+	models.Cookie.Remove(c, "userinfo")
+	prevPage := c.Request.Referer()
+	if len(prevPage) > 0 {
+		c.Redirect(302, prevPage)
+	} else {
+		c.Redirect(302, "/")
+	}
 }
