@@ -18,7 +18,6 @@ func DefaultRoutersInit(r *gin.Engine) {
 		defaultRouters.GET("/cart/addCart", oystershop.CartController{}.AddCart)
 
 		defaultRouters.GET("/cart/successTip", oystershop.CartController{}.AddCartSuccess)
-
 		defaultRouters.GET("/cart/decCart", oystershop.CartController{}.DecCart)
 		defaultRouters.GET("/cart/incCart", oystershop.CartController{}.IncCart)
 		defaultRouters.GET("/cart/changeOneCart", oystershop.CartController{}.ChangeOneCart)
@@ -38,5 +37,24 @@ func DefaultRoutersInit(r *gin.Engine) {
 		defaultRouters.GET("/pass/loginOut", oystershop.PassController{}.LoginOut)
 		//判断用户权限
 		defaultRouters.GET("/buy/checkout", middlewares.InitUserAuthMiddleware, oystershop.BuyController{}.Checkout)
+		defaultRouters.POST("/buy/doCheckout", middlewares.InitUserAuthMiddleware, oystershop.BuyController{}.DoCheckout)
+		defaultRouters.GET("/buy/pay", middlewares.InitUserAuthMiddleware, oystershop.BuyController{}.Pay)
+		defaultRouters.GET("/buy/orderPayStatus", middlewares.InitUserAuthMiddleware, oystershop.BuyController{}.OrderPayStatus)
+
+		defaultRouters.POST("/address/addAddress", middlewares.InitUserAuthMiddleware, oystershop.AddressController{}.AddAddress)
+		defaultRouters.POST("/address/editAddress", middlewares.InitUserAuthMiddleware, oystershop.AddressController{}.EditAddress)
+		defaultRouters.GET("/address/changeDefaultAddress", middlewares.InitUserAuthMiddleware, oystershop.AddressController{}.ChangeDefaultAddress)
+		defaultRouters.GET("/address/getOneAddressList", middlewares.InitUserAuthMiddleware, oystershop.AddressController{}.GetOneAddressList)
+
+		defaultRouters.GET("/alipay", middlewares.InitUserAuthMiddleware, oystershop.AlipayController{}.Alipay)
+		defaultRouters.POST("/alipayNotify", oystershop.AlipayController{}.AlipayNotify)
+		defaultRouters.GET("/alipayReturn", middlewares.InitUserAuthMiddleware, oystershop.AlipayController{}.AlipayReturn)
+
+		defaultRouters.GET("/wxpay", middlewares.InitUserAuthMiddleware, oystershop.WxpayController{}.Wxpay)
+		defaultRouters.POST("/wxpay/notify", oystershop.WxpayController{}.WxpayNotify)
+
+		defaultRouters.GET("/user", middlewares.InitUserAuthMiddleware, oystershop.UserController{}.Index)
+		defaultRouters.GET("/user/order", middlewares.InitUserAuthMiddleware, oystershop.UserController{}.OrderList)
+		defaultRouters.GET("/user/orderinfo", middlewares.InitUserAuthMiddleware, oystershop.UserController{}.OrderInfo)
 	}
 }

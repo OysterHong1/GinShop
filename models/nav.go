@@ -10,7 +10,7 @@ type Nav struct {
 	Sort       int
 	Status     int
 	AddTime    int
-	GoodsItems []Goods `gorm:"-"`
+	GoodsItems []Goods `gorm:"-"` // 忽略本字段
 }
 
 func (Nav) TableName() string {

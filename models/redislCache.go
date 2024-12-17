@@ -49,10 +49,7 @@ type cacheDb struct{}
 
 func (c cacheDb) Set(key string, value interface{}, expiration int) {
 	if redisEnable {
-		/*返回值为byte类型的切片*/
 		v, err := json.Marshal(value)
-
-		/*  *time.Duration(expiration)用于将Second转换为int */
 		if err == nil {
 			rdbClient.Set(ctx, key, string(v), time.Second*time.Duration(expiration))
 		}
@@ -62,6 +59,7 @@ func (c cacheDb) Set(key string, value interface{}, expiration int) {
 func (c cacheDb) Get(key string, obj interface{}) bool {
 	if redisEnable {
 		valueStr, err1 := rdbClient.Get(ctx, key).Result()
+		//如果数据库连不上的话 也会缓存到redis中
 		if err1 == nil && valueStr != "" && valueStr != "[]" {
 			err2 := json.Unmarshal([]byte(valueStr), obj)
 			return err2 == nil
@@ -71,6 +69,7 @@ func (c cacheDb) Get(key string, obj interface{}) bool {
 	return false
 }
 
+//清除缓存
 func (c cacheDb) FlushAll() {
 	if redisEnable {
 		rdbClient.FlushAll(ctx)

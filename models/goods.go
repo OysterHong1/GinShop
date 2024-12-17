@@ -36,24 +36,34 @@ func (Goods) TableName() string {
 
 /*
 根据商品分类获取推荐商品
+	@param {Number} cateId - 分类id
+	@param {String} goodsType -  hot  best  new all
+	@param {Number} limitNum -  数量
+
+	1  表示顶级分类
+		21
+		23
+		24
+
+
 */
+
 func GetGoodsByCategory(cateId int, goodsType string, limitNum int) []Goods {
 
-	//判断cateId对应的是否是顶级分类
+	//判断cateId 是否是顶级分类
 	goodsCate := GoodsCate{Id: cateId}
 	DB.Find(&goodsCate)
-
 	var tempSlice []int
-	if goodsCate.Pid == 0 { //Pid为0时为顶级分类
-		//获取顶级分类下的二级分类
+	if goodsCate.Pid == 0 { //顶级分类
+		//获取顶级分类下面的二级分类
 		goodsCateList := []GoodsCate{}
 		DB.Where("pid = ?", goodsCate.Id).Find(&goodsCateList)
 
 		for i := 0; i < len(goodsCateList); i++ {
 			tempSlice = append(tempSlice, goodsCateList[i].Id)
 		}
-	}
 
+	}
 	tempSlice = append(tempSlice, cateId)
 
 	goodsList := []Goods{}

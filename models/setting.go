@@ -17,6 +17,7 @@ type Setting struct {
 	BucketName      string `form:"bucket_name"`
 	OssStatus       int    `form:"oss_status"`
 	OssDomain       string `form:"oss_domain"`
+	ThumbnailSize   string `form:"thumbnail_size"`
 }
 
 func (Setting) TableName() string {
