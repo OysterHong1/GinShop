@@ -56,5 +56,14 @@ func DefaultRoutersInit(r *gin.Engine) {
 		defaultRouters.GET("/user", middlewares.InitUserAuthMiddleware, oystershop.UserController{}.Index)
 		defaultRouters.GET("/user/order", middlewares.InitUserAuthMiddleware, oystershop.UserController{}.OrderList)
 		defaultRouters.GET("/user/orderinfo", middlewares.InitUserAuthMiddleware, oystershop.UserController{}.OrderInfo)
+
+		defaultRouters.GET("/search", oystershop.SearchController{}.Index)
+		defaultRouters.GET("/search/getOne", oystershop.SearchController{}.GetOne)
+		defaultRouters.GET("/search/addGoods", oystershop.SearchController{}.AddGoods)
+		defaultRouters.GET("/search/updateGoods", oystershop.SearchController{}.UpdateGoods)
+		defaultRouters.GET("/search/deleteGoods", oystershop.SearchController{}.DeleteGoods)
+		defaultRouters.GET("/search/query", oystershop.SearchController{}.Query)
+		defaultRouters.GET("/search/filterQuery", oystershop.SearchController{}.FilterQuery)
+		defaultRouters.GET("/search/goodsList", oystershop.SearchController{}.PagingQuery)
 	}
 }
