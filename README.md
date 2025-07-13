@@ -1,6 +1,9 @@
 # GinShop 电商系统
 
 基于 Go 语言 Gin 框架开发的现代化电商系统，提供完整的前台购物体验和后台管理功能。
+完成微服务拆分后的项目地址：https://github.com/OysterHong1/xiaomishop
+由于微服务拆分仅作用于后端部分功能，文档撰写，项目展示这些部分可以在这个项目进行
+克隆项目后可以根据下面的部署攻略完成部署，有问题随时找我。
 
 ## 📋 项目简介
 
@@ -87,15 +90,14 @@ GinShop/
 ## 🛠️ 安装配置
 
 ### 环境要求
+请先保证有下面的环境：
 - Go 1.22.0+
 - MySQL 5.7+
 - Redis 6.0+
-- Elasticsearch 7.9.0
 
 ### 1. 克隆项目
 ```bash
 git clone <repository-url>
-cd GinShop
 ```
 
 ### 2. 安装依赖
@@ -118,29 +120,18 @@ ip   = 127.0.0.1
 port = 6379
 redisEnable = true
 ```
+完成编辑后，通过项目中的sql初始化脚本`ginxiaomi.sql`来初始化数据库
 
 ### 4. 启动服务
-
-#### 启动 Redis
-```bash
-redis-server
-```
-
-#### 启动 Elasticsearch
-```bash
-cd elasticsearch-7.9.0
-./bin/elasticsearch
-```
-
 #### 启动应用
 ```bash
 go run main.go
 ```
 
 ### 5. 访问地址
-- **前台地址**: http://localhost:8080
-- **后台地址**: http://localhost:8080/admin
-- **API 接口**: http://localhost:8080/api/v1 或 http://localhost:8080/api/v2
+- **前台地址**: http://localhost:9000
+- **后台地址**: http://localhost:9000/admin
+- **测试帐号**: 管理员帐号：admin 管理员密码：123456
 
 ## 📦 核心依赖
 
