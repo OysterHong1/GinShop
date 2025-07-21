@@ -1,12 +1,12 @@
 package oystershop
 
-import "C"
 import (
 	"GinShop/models"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"math"
 	"strings"
+
+	"github.com/gin-gonic/gin"
 )
 
 type ProductController struct {
